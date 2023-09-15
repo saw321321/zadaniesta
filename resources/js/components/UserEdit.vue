@@ -27,12 +27,12 @@ import axios from 'axios';
 
 export default {
 props: {
-  userId: Number, // Przekazujemy ID użytkownika, który ma być edytowany
+  userId: Number, 
 },
 data() {
   return {
     user: {
-      id: this.userId, // Użyj przekazanego ID użytkownika
+      id: this.userId, 
       name: '',
       email: '',
       role: 'user',
@@ -40,12 +40,12 @@ data() {
   };
 },
 created() {
-  // Teraz możesz użyć userId do żądania API lub innych operacji
+  
   this.getUserData(this.userId);
 },
 methods: {
   getUserData(userId) {
-    // Wykonaj żądanie API do pobrania danych użytkownika
+   
     axios.get(`/api/users/${userId}`)
       .then((response) => {
         const userData = response.data;
@@ -61,15 +61,15 @@ methods: {
       });
   },
   updateUser() {
-  // Wykonaj akcję aktualizacji użytkownika
-  axios.put(`/api/users/${this.userId}`, { // Użyj this.userId
+  
+  axios.put(`/api/users/${this.userId}`, { 
     name: this.user.name,
     email: this.user.email,
     role: this.user.role,
   })
     .then(() => {
-      // Po zaktualizowaniu użytkownika wykonaj odpowiednie akcje (np. powrót do listy)
-      this.$router.push('/users'); // Przykład przekierowania do listy użytkowników
+      
+      this.$router.push('/users'); 
     })
     .catch((error) => {
       console.error('Błąd aktualizacji użytkownika:', error);

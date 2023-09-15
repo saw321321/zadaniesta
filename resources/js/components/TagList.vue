@@ -10,12 +10,12 @@
   <script>
   export default {
     props: {
-      tags: Array, // Przyjmuje tablicę tagów
+      tags: Array, 
     },
   };
   
   </script>
   
   <style scoped>
-  /* Style dla komponentu TagList.vue */
+  
   </style>

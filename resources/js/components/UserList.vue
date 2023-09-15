@@ -4,14 +4,14 @@
   export default {
     data() {
       return {
-        users: [] // Tutaj będziemy przechowywać listę użytkowników
+        users: [] 
       };
     },
     mounted() {
         this.fetchUsers();
     },
     methods: {
-   // Funkcja do pobierania listy użytkowników z API
+   
    fetchUsers() {
      axios.get('/api/users')
        .then(response => {
@@ -25,7 +25,7 @@
    saveUser() {
     axios.post('/api/users', this.user)
       .then(response => {
-        // Po sukcesie odśwież stronę
+        
         window.location.reload();
       })
       .catch(error => {
@@ -37,5 +37,5 @@
   </script>
   
   <style scoped>
-  /* Stylizacja komponentu */
+ 
   </style>

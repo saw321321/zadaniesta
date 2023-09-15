@@ -43,12 +43,12 @@ export default {
   methods: {
     saveUser() {
       if (this.isEditMode) {
-        // Edytuj użytkownika
+        
         axios.put(`/users/${this.userIdToEdit}/edit`, this.user).then(() => {
           this.redirectToList();
         });
       } else {
-        // Dodaj użytkownika
+       
         axios.post('/api/users', this.user).then(() => {
           this.redirectToList();
         });
