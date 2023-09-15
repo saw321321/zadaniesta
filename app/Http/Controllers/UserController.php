@@ -17,57 +17,56 @@ class UserController extends Controller
 
     public function searchUser(Request $request)
 {
-    // Pobierz dane z formularza wyszukiwania
-    $searchTerm = $request->input('searchTerm'); // Załóżmy, że pole formularza ma atrybut 'searchTerm'
+    
+    $searchTerm = $request->input('searchTerm'); 
 
-    // Wykonaj zapytanie do bazy danych w celu wyszukania użytkowników
+    
     $users = User::where('name', 'LIKE', "%$searchTerm%")
                 ->orWhere('email', 'LIKE', "%$searchTerm%")
-                ->paginate(10); // Przykład: wyszukuje użytkowników po nazwie lub adresie e-mail
+                ->paginate(10); 
 
-    // Przekaz wyniki wyszukiwania do widoku
+    
     return view('admin.users.index', compact('users'));
 }
 public function destroy(User $user)
 {
-    // Usuń użytkownika
+    
     $user->delete();
-
-    // Przekieruj do listy użytkowników lub innej odpowiedniej strony
+ 
     return redirect()->route('users.index');
 }
 public function getUserById($userId)
 {
-    // Znajdź użytkownika na podstawie $userId
+    
     $user = User::find($userId);
 
-    // Sprawdź, czy użytkownik istnieje
+    
     if (!$user) {
         return response()->json(['error' => 'Użytkownik nie znaleziony'], 404);
     }
 
-    // Zwróć dane użytkownika w formie JSON
+   
     return response()->json($user);
 }
 public function update(Request $request, $id)
 {
-    // Pobierz użytkownika z bazy danych na podstawie $id
+    
     $user = User::findOrFail($id);
 
-    // Waliduj dane z żądania
+    
     $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|email|max:255|unique:users,email,' . $user->id,
         'role' => 'required|in:user,admin',
     ]);
 
-    // Zaktualizuj dane użytkownika
+    
     $user->name = $request->input('name');
     $user->email = $request->input('email');
     $user->role = $request->input('role');
     $user->save();
 
-    // Przekieruj po zaktualizowaniu użytkownika
+   
     return redirect()->route('users.index')->with('success', 'Użytkownik został zaktualizowany.');
 }
 
@@ -102,13 +101,13 @@ public function update(Request $request, $id)
     public function show($id)
     {
         try {
-            // Pobierz użytkownika na podstawie identyfikatora
+            
             $user = User::findOrFail($id);
     
-            // Zwróć widok wyświetlający szczegóły użytkownika
+            
             return view('users.show', compact('user'));
         } catch (\Exception $e) {
-            // Obsłuż ewentualny błąd, np. użytkownik nie istnieje
+            
             return redirect()->route('users.index')->with('error', 'Nie znaleziono użytkownika o podanym ID.');
         }
     }

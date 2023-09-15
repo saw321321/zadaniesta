@@ -11,7 +11,6 @@ class Tag extends Model
 
     protected $fillable = ['name'];
 
-    // Relacja wiele do wielu między tagami a wpisami (jeśli jest taka potrzeba)
     public function posts()
 {
     return $this->belongsToMany(Post::class);

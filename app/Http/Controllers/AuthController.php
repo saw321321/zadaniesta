@@ -16,14 +16,14 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // Logika logowania użytkownika, wykorzystując wbudowane mechanizmy Laravel.
+        
     }
 
     public function logout(Request $request)
 {
     Auth::logout();
     
-    return redirect('/'); // Możesz przekierować użytkownika na dowolną stronę po wylogowaniu.
+    return redirect('/'); 
 }
 
     public function register(Request $request)
@@ -40,7 +40,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // Możesz dodać kod obsługujący zdarzenie po rejestracji, na przykład wysłanie powitalnego e-maila lub przekierowanie użytkownika.
+        
 
         return redirect()->route('login')->with('success', 'Konto zostało utworzone. Możesz się teraz zalogować.');
     }

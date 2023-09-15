@@ -31,7 +31,7 @@ Route::get('/', function () {
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 
 Route::get('/logout', 'Auth\AuthController@logout')->name('logout')->middleware('auth');
-//Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 
 Route::get('/search_user', 'UserController@searchUser')->name('search_user');
 

@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Pobierz wszystkie wpisy
+        
         $posts = Post::with('tags')->get();
         $posts = Post::paginate(10);
         return view('posts.index', compact('posts'));
@@ -18,17 +18,17 @@ class PostController extends Controller
 
     public function create()
     {
-        // Wyświetl formularz do tworzenia nowego wpisu
-        $tags = Tag::all(); // Pobierz dostępne tagi
+        
+        $tags = Tag::all();
 
         return view('posts.create', compact('tags'));
     }
     public function show($id)
     {
-        // Wyświetl formularz do tworzenia nowego wpisu
+        
         $post = Post::find($id);
 
-        // Jeśli post o danym ID nie istnieje, możesz obsłużyć ten przypadek (np. przekierować użytkownika lub wyświetlić błąd)
+        
         if (!$post) {
             return redirect()->route('posts.index')->with('error', 'Post o podanym ID nie istnieje.');
         }
@@ -38,13 +38,13 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        // Zapisz nowy wpis
+        
         $post = new Post();
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->save();
 
-        // Przypisz wybrane tagi do wpisu
+       
         $post->tags()->sync($request->input('tags'));
 
         return redirect()->route('posts.index')->with('success', 'Wpis został dodany.');
@@ -52,10 +52,9 @@ class PostController extends Controller
 
     public function edit($id)
     {
-        // Pobierz wpis do edycji
+        
         $post = Post::find($id);
 
-        // Pobierz dostępne tagi
         $tags = Tag::all();
 
         return view('posts.edit', compact('post', 'tags'));
@@ -63,13 +62,13 @@ class PostController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Zaktualizuj wpis
+        
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->save();
 
-        // Przypisz wybrane tagi do wpisu
+       
         $post->tags()->sync($request->input('tags'));
 
         return redirect()->route('posts.index')->with('success', 'Wpis został zaktualizowany.');
@@ -77,7 +76,7 @@ class PostController extends Controller
 
     public function destroy($id)
     {
-        // Usuń wpis
+        
         $post = Post::find($id);
         $post->delete();
 
